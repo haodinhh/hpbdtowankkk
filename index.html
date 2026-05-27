@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HPBD by Dinh Hao</title>
+  <meta name="description" content="Trang web chúc mừng sinh nhật đặc biệt dành riêng cho bạn!" />
+  <link rel="icon" type="image/png" href="images/19.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Pacifico&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <canvas id="bgConfettiCanvas"></canvas>
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- ============ SCREEN 1 - MÀN HÌNH NHẬP MẬT KHẨU ============ -->
+  <section id="screen1" class="screen screen--active">
+    <div class="screen1__container">
+      <!-- CỘT TRÁI: Polaroid -->
+      <div class="screen1__left">
+        <div class="polaroid">
+          <div class="polaroid__sticker">
+            <img src="images/HPBD.png" alt="Happy Birthday" />
+          </div>
+          <div class="polaroid__photo">
+            <!-- Thay src bằng ảnh thật từ thư mục /images -->
+            <img src="images/wank/polaroid.png" alt="Polaroid photo" class="polaroid__img" />
+          </div>
+          <div class="polaroid__caption">PHAM QUYNH ANH</div>
+        </div>
+      </div>
+
+      <!-- CỘT PHẢI: Numpad -->
+      <div class="screen1__right">
+        <h1 class="numpad__title">Nhập mật khẩu</h1>
+
+        <div class="pin-display" id="pinDisplay">
+          <div class="pin-dot" id="dot0"></div>
+          <div class="pin-dot" id="dot1"></div>
+          <div class="pin-dot" id="dot2"></div>
+          <div class="pin-dot" id="dot3"></div>
+        </div>
+
+        <div class="numpad" id="numpad">
+          <button class="numpad__btn" data-value="1">1</button>
+          <button class="numpad__btn" data-value="2">2</button>
+          <button class="numpad__btn" data-value="3">3</button>
+          <button class="numpad__btn" data-value="4">4</button>
+          <button class="numpad__btn" data-value="5">5</button>
+          <button class="numpad__btn" data-value="6">6</button>
+          <button class="numpad__btn" data-value="7">7</button>
+          <button class="numpad__btn" data-value="8">8</button>
+          <button class="numpad__btn" data-value="9">9</button>
+          <button class="numpad__btn numpad__btn--special" data-value="*">✱</button>
+          <button class="numpad__btn" data-value="0">0</button>
+          <button class="numpad__btn numpad__btn--special" data-value="#">#</button>
+        </div>
+
+        <button class="numpad__enter" id="enterBtn">Enter</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CORGI SCREEN - HAPPY BIRTHDAY INTRO ============ -->
+  <section id="corgiScreen" class="screen">
+    <div class="corgi-container">
+      <img src="images/HPBD.png" alt="Happy Birthday" class="corgi-title" />
+      <div class="corgi-wrapper">
+        <img src="images/Corgi.png" alt="Happy Birthday Corgi" class="corgi-img" />
+      </div>
+      <div class="corgi-hint">Chạm để tiếp tục nhaaa</div>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN 2 - MÀN HÌNH CHỌN QUÀ ============ -->
+  <section id="screen2" class="screen">
+    <!-- Phần chọn quà -->
+    <div class="screen2__container" id="giftsSection">
+      <h1 class="screen2__title">
+        <span class="title-line">Present for you</span>
+      </h1>
+
+      <div class="gifts-wrapper">
+        <!-- QUÀ 1 -->
+        <div class="gift-box" id="gift1" data-gift="1">
+          <img src="images/Box1.png" alt="Quà 1" class="gift-box__img" />
+        </div>
+
+        <!-- QUÀ 2 -->
+        <div class="gift-box" id="gift2" data-gift="2">
+          <img src="images/Box2.png" alt="Quà 2" class="gift-box__img" />
+        </div>
+
+        <!-- QUÀ 3 -->
+        <div class="gift-box" id="gift3" data-gift="3">
+          <img src="images/Box3.png" alt="Quà 3" class="gift-box__img" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ GIFT VIEW 1: BÁNH SINH NHẬT ============ -->
+    <div class="gift-view" id="giftView1">
+      <div class="gift-view__inner">
+        <div class="cake-display">
+          <img src="images/19.png" alt="19" class="cake-display__age" />
+          <p class="cake-display__text">BÁNH SINH NHẬT SIU TO KHỦM LỒ NÈ</p>
+          <img src="images/SWBD.png" alt="Birthday Cake" class="cake-display__cake" />
+        </div>
+        <button class="gift-view__back" data-back="giftView1">Enter</button>
+      </div>
+    </div>
+
+    <!-- ============ GIFT VIEW 2: THIỆP ĐƠN GIẢN ============ -->
+    <div class="gift-view" id="giftView2">
+      <div class="gift-view__inner">
+        <div class="card-display">
+          <div class="card-display__message">
+            <div class="card-display__line1">Happy Birthday</div>
+            <div class="card-display__line2">My Loveeeee</div>
+          </div>
+          <img src="images/MeoBopBo.png" alt="Cute Cat" class="card-display__cat" />
+        </div>
+        <button class="gift-view__back" data-back="giftView2">Enter</button>
+      </div>
+    </div>
+
+    <!-- ============ GIFT VIEW 3: THIỆP CHI TIẾT & PHOTOBOOTH ============ -->
+    <div class="gift-view" id="giftView3">
+      <div class="gift-view__inner">
+        <div class="detailed-card">
+          <!-- Bên trái: Dải ảnh Photobooth -->
+          <div class="detailed-card__photos">
+            <div class="photobooth-strip">
+              <div class="photobooth-strip__header">PHOTOBOOTH</div>
+              <div class="photobooth-strip__frame">
+                <!-- Thay src bằng ảnh thật từ thư mục /images -->
+                <img src="images/wank/photo1.png" alt="Photo 1" />
+              </div>
+              <div class="photobooth-strip__frame">
+                <img src="images/wank/photo2.png" alt="Photo 2" />
+              </div>
+              <div class="photobooth-strip__frame">
+                <img src="images/wank/photo3.png" alt="Photo 3" />
+              </div>
+              <div class="photobooth-strip__frame">
+                <img src="images/wank/photo4.png" alt="Photo 4" />
+              </div>
+              <div class="photobooth-strip__footer">28/05</div>
+            </div>
+          </div>
+
+          <!-- Bên phải: Lời chúc chi tiết -->
+          <div class="detailed-card__message">
+            <h2 class="detailed-card__title">Dear, Wank - tình yêu to lớn cụa tuiiii</h2>
+            <div class="detailed-card__text">
+              <p>
+                Hôm nay là ngày siêu siêu tuyệt vời, ngày mà một nàng công chúa được chào đón tới thế giới này. Đặc
+                biệt, anh thực sự may mắn khi được đón sinh nhật thật kỳ diệu như nàyyyyy
+              </p>
+              <p>
+                Chúc em một tuổi mới luôn luôn xinh đẹp, tràn đầy năng lượng tích cực cùng với nụ cười ho hò họooo trên
+                môi. Mong em sẽ đạt được thật nhiều thành công những mục tiêu mà bản thân đã đặt ra. Quan trọng là nghe
+                lời tui hơn, ngủ sớm hơn, chăm ăn hơn, bla blaaaa. Em haaaaaa..!
+              </p>
+              <p>
+                TÚM LẠI LÀ, CHÚC EM TUỔI MỚI RỰC RỠ, THÀNH CÔNG HƠN TUỔI CŨ.
+              </p>
+              <p>
+                ANH YÊU EMMMMMMMMMMM ❤️ </p>
+              <div class="detailed-card__signature-block">
+                <img src="images/kyten.png" alt="Chữ ký Vương Đình Hảo" class="detailed-card__signature-img" />
+                <div class="detailed-card__signature-name">Vương Đình Hảo</div>
+              </div>
+            </div>
+            <img src="images/Corgi.png" alt="Happy Birthday Corgi" class="detailed-card__corgi" />
+          </div>
+        </div>
+        <button class="gift-view__back" data-back="giftView3">Enter</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- AUDIO -->
+  <audio id="bgMusic" loop>
+    <source src="audio/HPBD.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Watermark & Music Control -->
+  <div class="bottom-left-controls">
+    <button id="musicToggle" class="music-control-btn muted" aria-label="Toggle Music">
+      <svg id="musicIcon" viewBox="0 0 24 24">
+        <!-- Default playing icon: music note (muted path) -->
+        <path id="musicIconPath"
+          d="M4.27 3L3 4.27l9 9v.28c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4v-1.18l5.46 5.46 1.27-1.27L4.27 3zM14 7h4V3h-6v1.18l2 2V7z" />
+      </svg>
+    </button>
+    <span class="watermark-text">Made by Dinh Hao</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

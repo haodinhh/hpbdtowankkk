@@ -1,0 +1,1278 @@
+@font-face {
+  font-family: 'VL Circular XX BookItalic';
+  src: url('font/VL CircularXX-BookItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* =============================================
+   RESET & GLOBALS
+   ============================================= */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --pink-light: #f9bad1;
+  --pink-mid: #f48fb1;
+  --pink-dark: #e91e80;
+  --maroon: #8b3a58;
+  --maroon-dark: #6d2c45;
+  --maroon-deeper: #5a2038;
+  --cream: #fff7f0;
+  --gold: #ffd700;
+  --white: #ffffff;
+  --shadow-soft: 0 8px 32px rgba(139, 58, 88, 0.15);
+  --shadow-medium: 0 12px 48px rgba(139, 58, 88, 0.2);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Nunito', 'Quicksand', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--white) 0%, #fef0f5 30%, var(--pink-light) 70%, #f8a4c4 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  color: #333;
+}
+
+#bgConfettiCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.screen {
+  display: none;
+  min-height: 100vh;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.screen--active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+}
+
+.screen--fade-in {
+  animation: fadeInScreen 1s ease forwards;
+}
+
+@keyframes fadeInScreen {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =============================================
+   SCREEN 1 - MÀN HÌNH MẬT KHẨU
+   ============================================= */
+.screen1__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  padding: 40px 24px;
+  max-width: 1100px;
+  width: 100%;
+}
+
+/* --- Cột trái: Polaroid --- */
+.screen1__left {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.polaroid {
+  position: relative;
+  background: var(--white);
+  padding: 24px 24px 72px;
+  width: 440px;
+  border-radius: 8px;
+  box-shadow:
+    0 10px 38px rgba(0, 0, 0, 0.12),
+    0 2px 10px rgba(0, 0, 0, 0.08);
+  transform: rotate(-4deg);
+  transition: transform 0.5s ease;
+}
+
+
+.polaroid__sticker {
+  position: absolute;
+  top: -38px;
+  left: -42px;
+  width: 210px;
+  transform: rotate(-8deg);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.polaroid__sticker img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+  animation: gentleWobble 4s ease-in-out infinite alternate;
+}
+
+@keyframes gentleWobble {
+  0% {
+    transform: rotate(0deg) translateY(0);
+  }
+
+  100% {
+    transform: rotate(3deg) translateY(-3px);
+  }
+}
+
+.polaroid__photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #1a1a1a;
+  border-radius: 2px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.polaroid__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+  transition: opacity var(--transition);
+}
+
+/* Nếu chưa có ảnh, hiện placeholder */
+.polaroid__img[src=""],
+.polaroid__img:not([src]),
+.polaroid__img[src="images/wank/polaroid.png"] {
+  /* Fallback: sẽ hiển thị nền đen cho tới khi ảnh được thêm */
+}
+
+.polaroid__caption {
+  text-align: center;
+  margin-top: 20px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--maroon);
+}
+
+/* Floating hearts */
+.floating-hearts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: floatHeart 4s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.7s);
+}
+
+.heart:nth-child(1) {
+  top: -10%;
+  left: 10%;
+}
+
+.heart:nth-child(2) {
+  top: 15%;
+  right: -15%;
+}
+
+.heart:nth-child(3) {
+  bottom: 20%;
+  left: -10%;
+}
+
+.heart:nth-child(4) {
+  top: 5%;
+  right: -10%;
+}
+
+.heart:nth-child(5) {
+  bottom: 5%;
+  right: -5%;
+}
+
+.heart:nth-child(6) {
+  bottom: 35%;
+  left: -15%;
+}
+
+@keyframes floatHeart {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: translateY(-18px) scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* --- Cột phải: Numpad --- */
+.screen1__right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-xl);
+  padding: 40px 36px;
+  box-shadow: var(--shadow-medium);
+}
+
+.numpad__title {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 28px;
+  color: var(--maroon);
+  margin-bottom: 4px;
+}
+
+.numpad__subtitle {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 28px;
+}
+
+/* PIN dots */
+.pin-display {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.pin-dot {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  border: 2.5px solid var(--maroon);
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--maroon);
+  transition: all var(--transition);
+}
+
+.pin-dot--filled {
+  background: rgba(139, 58, 88, 0.1);
+  border-color: var(--maroon-dark);
+  animation: dotPop 0.2s ease;
+}
+
+.pin-dot--filled::after {
+  content: '●';
+  font-size: 22px;
+  color: var(--maroon);
+}
+
+@keyframes dotPop {
+  0% {
+    transform: scale(0.8);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Shake animation */
+.pin-display--shake {
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  15% {
+    transform: translateX(-12px);
+  }
+
+  30% {
+    transform: translateX(10px);
+  }
+
+  45% {
+    transform: translateX(-8px);
+  }
+
+  60% {
+    transform: translateX(6px);
+  }
+
+  75% {
+    transform: translateX(-4px);
+  }
+
+  90% {
+    transform: translateX(2px);
+  }
+}
+
+/* Numpad grid */
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.numpad__btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: none;
+  background: var(--maroon);
+  color: var(--white);
+  font-family: 'Nunito', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow:
+    0 4px 15px rgba(139, 58, 88, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.numpad__btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.numpad__btn:active::after {
+  width: 120%;
+  height: 120%;
+}
+
+
+.numpad__btn:active {
+  transform: scale(0.92);
+}
+
+.numpad__btn--special {
+  background: var(--maroon);
+  font-size: 18px;
+}
+
+.numpad__enter {
+  width: 100%;
+  padding: 14px 48px;
+  border-radius: var(--radius-lg);
+  border: none;
+  background: var(--maroon);
+  color: var(--white);
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: 0 4px 20px rgba(139, 58, 88, 0.25);
+}
+
+
+.numpad__enter:active {
+  transform: scale(0.97);
+}
+
+/* =============================================
+   SCREEN 2 - CHỌN QUÀ
+   ============================================= */
+#screen2 {
+  flex-direction: column;
+  position: relative;
+}
+
+.screen2__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 24px;
+  z-index: 1;
+}
+
+.screen2__title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.title-line {
+  display: block;
+  font-family: 'Pacifico', 'Dancing Script', cursive;
+  font-size: 56px;
+  color: var(--maroon);
+  text-shadow: 0 2px 10px rgba(139, 58, 88, 0.15);
+}
+
+.title-sub {
+  display: block;
+  font-size: 16px;
+  color: var(--maroon-dark);
+  margin-top: 10px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+@keyframes titleBounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Gift Boxes */
+.gifts-wrapper {
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.gift-box {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: giftWobble 4s ease-in-out infinite alternate;
+}
+
+.gift-box:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.gift-box:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.gift-box:nth-child(3) {
+  animation-delay: 1.2s;
+}
+
+@keyframes giftWobble {
+  0% {
+    transform: rotate(0deg) translateY(0);
+  }
+
+  100% {
+    transform: rotate(3deg) translateY(-3px);
+  }
+}
+
+.gift-box__img {
+  width: 190px;
+  height: 190px;
+  object-fit: contain;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.08));
+}
+
+.gift-box__label {
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--maroon);
+}
+
+/* Confetti canvas */
+#confettiCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* =============================================
+   GIFT VIEWS (Inline full-screen sections)
+   ============================================= */
+.gift-view {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.gift-view--active {
+  display: flex;
+  animation: giftViewIn 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes giftViewIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gift-view__inner {
+  width: 100%;
+  max-width: 800px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gift-view__back {
+  position: absolute;
+  bottom: 32px;
+  right: 40px;
+  background: var(--maroon);
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: 12px 28px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--white);
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: 0 4px 16px rgba(139, 58, 88, 0.25);
+  letter-spacing: 1px;
+  z-index: 10;
+}
+
+.gift-view__back:hover {
+  background: var(--maroon-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 58, 88, 0.35);
+}
+
+.gift-view__back:active {
+  transform: scale(0.97);
+}
+
+.gift-view__title {
+  text-align: center;
+  font-family: 'Pacifico', cursive;
+  font-size: 32px;
+  color: var(--maroon);
+  margin-bottom: 16px;
+  text-shadow: 0 2px 8px rgba(139, 58, 88, 0.1);
+}
+
+/* =============================================
+   QUÀ 1 - BÁNH SINH NHẬT
+   ============================================= */
+.cake-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 2vh, 24px);
+  width: 100%;
+  max-height: 88vh;
+}
+
+.cake-display__age {
+  height: clamp(80px, 16vh, 170px);
+  width: auto;
+  object-fit: contain;
+  animation: floatAge 3s ease-in-out infinite alternate;
+}
+
+.cake-display__text {
+  font-family: 'Quicksand', sans-serif;
+  font-size: clamp(18px, 3.5vw, 30px);
+  font-weight: 700;
+  color: var(--maroon);
+  text-align: center;
+  margin: clamp(8px, 1.5vh, 16px) 0;
+}
+
+.cake-display__cake {
+  width: clamp(260px, 60vw, 620px);
+  max-width: 90%;
+  max-height: 52vh;
+  height: auto;
+  object-fit: contain;
+  animation: bounceCake 4s ease-in-out infinite alternate;
+}
+
+@keyframes floatAge {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes bounceCake {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
+
+/* =============================================
+   QUÀ 2 - THIỆP ĐƠN GIẢN
+   ============================================= */
+.card-display {
+  position: relative;
+  z-index: 1;
+  width: min(750px, 90vw);
+  max-height: 80vh;
+  aspect-ratio: 4534 / 3713;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(20px, 5vh, 55px) clamp(20px, 5vw, 55px) clamp(15px, 3vh, 35px);
+  box-sizing: border-box;
+}
+
+.card-display::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('images/Thiep.png') no-repeat center center;
+  background-size: 100% 100%;
+  z-index: -1;
+  filter: drop-shadow(0 0 12px rgba(139, 58, 88, 0.12)) drop-shadow(0 8px 24px rgba(0, 0, 0, 0.08));
+}
+
+.card-display__message {
+  font-family: 'Pacifico', 'Dancing Script', cursive;
+  font-size: clamp(24px, 5vw, 58px);
+  font-weight: normal;
+  font-style: italic;
+  color: var(--maroon);
+  text-align: center;
+  line-height: 1.55;
+  margin-top: clamp(10px, 4vh, 45px);
+}
+
+.card-display__cat {
+  height: clamp(80px, 22vh, 240px);
+  width: auto;
+  object-fit: contain;
+  margin-bottom: clamp(5px, 1.5vh, 15px);
+  animation: catFloat 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes catFloat {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-4px);
+  }
+}
+
+/* =============================================
+   QUÀ 3 - THIỆP CHI TIẾT & PHOTOBOOTH
+   ============================================= */
+#giftView3 .gift-view__inner {
+  max-width: 900px;
+}
+
+.detailed-card {
+  display: flex;
+  gap: 32px;
+}
+
+/* Photobooth Strip */
+.detailed-card__photos {
+  flex-shrink: 0;
+  opacity: 0;
+}
+
+.gift-view--active .detailed-card__photos {
+  animation: slideOutPhotobooth 1.4s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards;
+}
+
+.photobooth-strip {
+  background: var(--white);
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.photobooth-strip__header {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: var(--maroon);
+  padding: 4px 0;
+}
+
+.photobooth-strip__frame {
+  width: 156px;
+  height: 110px;
+  background: #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 3px solid var(--white);
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.photobooth-strip__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photobooth-strip__footer {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: var(--maroon);
+  padding: 4px 0;
+}
+
+/* Message section */
+.detailed-card__message {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.95);
+  /* White background */
+  padding: 24px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(139, 58, 88, 0.08);
+  opacity: 0;
+  position: relative; /* Định vị tuyệt đối cho ảnh Corgi */
+}
+
+.gift-view--active .detailed-card__message {
+  animation: slideInMessage 1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s forwards;
+}
+
+/* Animations for Gift 3 */
+@keyframes slideOutPhotobooth {
+  0% {
+    opacity: 0;
+    transform: translateX(-120px) rotate(-6deg) scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes slideInMessage {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.detailed-card__title {
+  font-family: 'Pacifico', cursive;
+  font-size: 26px;
+  color: var(--maroon);
+  margin-bottom: 20px;
+}
+
+.detailed-card__text {
+  flex: 1;
+}
+
+.detailed-card__text p {
+  font-size: 15px;
+  line-height: 1.9;
+  color: #555;
+  margin-bottom: 16px;
+  text-align: justify;
+}
+
+.detailed-card__signature-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: flex-start;
+  width: fit-content;
+  margin-top: 24px;
+  margin-right: auto;
+  min-width: 180px;
+}
+
+.detailed-card__signature-img {
+  height: clamp(75px, 10vh, 110px);
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 4px;
+  mix-blend-mode: multiply;
+}
+
+.detailed-card__signature-name {
+  font-family: 'Pacifico', cursive;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--maroon);
+  text-align: center;
+}
+
+.detailed-card__corgi {
+  position: absolute;
+  bottom: 0px;
+  right: 12px;
+  height: clamp(70px, 11vh, 100px);
+  width: auto;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 768px) {
+  .screen1__container {
+    flex-direction: column;
+    gap: 32px;
+    padding: 24px 16px;
+  }
+
+  .polaroid {
+    width: 260px;
+    padding: 14px 14px 44px;
+    transform: rotate(-2deg);
+  }
+
+  .polaroid__sticker {
+    width: 125px;
+    top: -20px;
+    left: -22px;
+  }
+
+  .polaroid__caption {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .screen1__right {
+    padding: 28px 20px;
+    border-radius: var(--radius-lg);
+  }
+
+  .numpad__title {
+    font-size: 22px;
+  }
+
+  .pin-dot {
+    width: 44px;
+    height: 44px;
+  }
+
+  .numpad__btn {
+    width: 54px;
+    height: 54px;
+    font-size: 18px;
+  }
+
+  .numpad {
+    gap: 10px;
+  }
+
+  .title-line {
+    font-size: 38px;
+  }
+
+  .gifts-wrapper {
+    gap: 28px;
+  }
+
+  .gift-box__img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .gift-view {
+    padding: 20px 16px;
+  }
+
+  .gift-view__title {
+    font-size: 24px;
+  }
+
+  .gift-view__back {
+    font-size: 14px;
+    padding: 10px 22px;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .detailed-card {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .detailed-card__message {
+    width: 100%;
+    padding: 16px 20px;
+  }
+
+  .photobooth-strip {
+    width: 160px;
+  }
+
+  .photobooth-strip__frame {
+    width: 136px;
+    height: 95px;
+  }
+}
+
+@media (max-width: 380px) {
+  .pin-display {
+    gap: 10px;
+  }
+
+  .pin-dot {
+    width: 40px;
+    height: 40px;
+  }
+
+  .numpad__btn {
+    width: 48px;
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .numpad {
+    gap: 8px;
+  }
+
+  .polaroid {
+    width: 210px;
+    padding: 12px 12px 36px;
+  }
+
+  .polaroid__sticker {
+    width: 100px;
+    top: -15px;
+    left: -16px;
+  }
+
+  .polaroid__caption {
+    font-size: 13px;
+    margin-top: 8px;
+  }
+
+  .gift-view__back {
+    bottom: 16px;
+    right: 16px;
+    font-size: 13px;
+    padding: 8px 18px;
+  }
+}
+
+/* =============================================
+   SCROLLBAR CUSTOM
+   ============================================= */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pink-mid);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--maroon);
+}
+
+/* =============================================
+   UTILITIES
+   ============================================= */
+.hidden {
+  display: none !important;
+}
+
+/* =============================================
+   WATERMARK & MUSIC CONTROLS
+   ============================================= */
+.bottom-left-controls {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 9999;
+}
+
+.music-control-btn {
+  background: rgba(139, 58, 88, 0.08);
+  border: 1px solid rgba(139, 58, 88, 0.15);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  color: var(--maroon);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.music-control-btn:hover {
+  background: rgba(139, 58, 88, 0.15);
+  transform: scale(1.1);
+  border-color: rgba(139, 58, 88, 0.3);
+}
+
+.music-control-btn:active {
+  transform: scale(0.95);
+}
+
+.music-control-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  transition: transform 0.3s ease;
+}
+
+.music-control-btn.muted svg {
+  color: rgba(139, 58, 88, 0.5);
+}
+
+.watermark-text {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--maroon);
+  opacity: 0.25;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* =============================================
+   TRANSITION EFFECTS (Go back animations)
+   ============================================= */
+.gift-view--hide-up {
+  animation: giftViewOutUp 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+}
+
+@keyframes giftViewOutUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+}
+
+.gifts-section--reveal {
+  animation: giftsRevealUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes giftsRevealUp {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =============================================
+   CORGI SCREEN (Happy Birthday Intro)
+   ============================================= */
+#corgiScreen {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+#corgiScreen.screen--active {
+  display: flex;
+  animation: giftViewIn 0.8s ease forwards;
+}
+
+.corgi-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 4vh, 40px);
+  width: 100%;
+  max-width: 90vw;
+  text-align: center;
+}
+
+.corgi-title {
+  width: clamp(280px, 40vw, 480px);
+  height: auto;
+  object-fit: contain;
+  animation: corgiTitlePulse 2.5s ease-in-out infinite alternate;
+}
+
+.corgi-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.corgi-img {
+  height: clamp(240px, 46vh, 420px);
+  width: auto;
+  object-fit: contain;
+  animation: corgiBounce 3s ease-in-out infinite alternate;
+}
+
+.corgi-hint {
+  font-family: 'Quicksand', sans-serif;
+  font-size: clamp(14px, 2.2vw, 18px);
+  font-weight: 700;
+  color: var(--maroon);
+  opacity: 0.8;
+  animation: hintPulse 1.8s infinite alternate;
+}
+
+/* Animations for Corgi Screen */
+@keyframes corgiTitlePulse {
+  0% {
+    transform: scale(0.96) rotate(-1deg);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
+  }
+
+  100% {
+    transform: scale(1.04) rotate(1deg);
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.08));
+  }
+}
+
+@keyframes corgiBounce {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    transform: translateY(-10px) scale(1.02);
+  }
+}
+
+@keyframes hintPulse {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.97);
+  }
+
+  100% {
+    opacity: 0.9;
+    transform: scale(1.03);
+  }
+}
