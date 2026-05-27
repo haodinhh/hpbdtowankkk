@@ -1078,12 +1078,24 @@ body {
   }
 
   .photobooth-strip {
-    width: 220px;
+    width: 100%;
+    max-width: 340px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 14px;
+  }
+
+  .photobooth-strip__header,
+  .photobooth-strip__footer {
+    grid-column: 1 / -1;
+    text-align: center;
   }
 
   .photobooth-strip__frame {
-    width: 196px;
-    height: 130px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
   }
 
   .detailed-card__message {
@@ -1227,12 +1239,11 @@ body {
   }
 
   .photobooth-strip {
-    width: 190px;
+    max-width: 300px;
   }
 
   .photobooth-strip__frame {
-    width: 166px;
-    height: 110px;
+    aspect-ratio: 4 / 3;
   }
 
   .gift-view__back {
@@ -1325,12 +1336,7 @@ body {
   }
 
   .photobooth-strip {
-    width: 170px;
-  }
-
-  .photobooth-strip__frame {
-    width: 146px;
-    height: 100px;
+    max-width: 270px;
   }
 
   .corgi-title {
