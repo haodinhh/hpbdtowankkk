@@ -919,21 +919,37 @@ body {
 /* =============================================
    RESPONSIVE
    ============================================= */
+
+/* --- Tablet & small laptop (max-width: 768px) --- */
 @media (max-width: 768px) {
+
+  /* Screen 1 - Password */
+  .screen--active {
+    align-items: flex-start;
+  }
+
   .screen1__container {
     flex-direction: column;
-    gap: 32px;
-    padding: 24px 16px;
+    gap: 28px;
+    padding: 32px 16px 40px;
+    min-height: 100vh;
+    justify-content: flex-start;
+  }
+
+  .screen1__left {
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 
   .polaroid {
-    width: 260px;
+    width: 240px;
     padding: 14px 14px 44px;
     transform: rotate(-2deg);
   }
 
   .polaroid__sticker {
-    width: 125px;
+    width: 120px;
     top: -20px;
     left: -22px;
   }
@@ -946,6 +962,8 @@ body {
   .screen1__right {
     padding: 28px 20px;
     border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 320px;
   }
 
   .numpad__title {
@@ -967,73 +985,161 @@ body {
     gap: 10px;
   }
 
+  /* Screen 2 - Gifts */
   .title-line {
-    font-size: 38px;
+    font-size: 36px;
+  }
+
+  .screen2__title {
+    margin-bottom: 32px;
   }
 
   .gifts-wrapper {
-    gap: 28px;
+    gap: 24px;
   }
 
   .gift-box__img {
-    width: 140px;
-    height: 140px;
+    width: 130px;
+    height: 130px;
   }
 
+  /* Gift Views - Make scrollable on mobile */
   .gift-view {
     padding: 20px 16px;
+    height: auto;
+    min-height: 100vh;
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+
+  .gift-view__inner {
+    height: auto;
+    min-height: auto;
+    padding-bottom: 24px;
   }
 
   .gift-view__title {
     font-size: 24px;
   }
 
+  /* Back button: relative on mobile so it doesn't overlap content */
   .gift-view__back {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin-top: 24px;
+    align-self: center;
     font-size: 14px;
-    padding: 10px 22px;
-    bottom: 20px;
-    right: 20px;
+    padding: 12px 36px;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
   }
 
+  /* Gift 1 - Cake */
+  .cake-display {
+    max-height: none;
+  }
+
+  .cake-display__age {
+    height: clamp(60px, 12vh, 120px);
+  }
+
+  .cake-display__cake {
+    width: clamp(220px, 70vw, 400px);
+    max-height: none;
+  }
+
+  /* Gift 2 - Card */
+  .card-display {
+    width: min(90vw, 400px);
+  }
+
+  .card-display__message {
+    font-size: clamp(18px, 4.5vw, 36px);
+  }
+
+  .card-display__cat {
+    height: clamp(60px, 16vh, 160px);
+  }
+
+  /* Gift 3 - Detailed card & Photobooth */
   .detailed-card {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    width: 100%;
+  }
+
+  .detailed-card__photos {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .photobooth-strip {
+    width: 220px;
+  }
+
+  .photobooth-strip__frame {
+    width: 196px;
+    height: 130px;
   }
 
   .detailed-card__message {
     width: 100%;
-    padding: 16px 20px;
+    padding: 20px 18px;
   }
 
-  .photobooth-strip {
-    width: 160px;
+  .detailed-card__title {
+    font-size: 20px;
+    margin-bottom: 14px;
   }
 
-  .photobooth-strip__frame {
-    width: 136px;
-    height: 95px;
+  .detailed-card__text p {
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+
+  .detailed-card__signature-block {
+    margin-top: 16px;
+    min-width: 140px;
+  }
+
+  .detailed-card__signature-img {
+    height: clamp(55px, 8vh, 85px);
+  }
+
+  .detailed-card__signature-name {
+    font-size: 15px;
+  }
+
+  .detailed-card__corgi {
+    height: clamp(50px, 8vh, 80px);
+    right: 8px;
+    bottom: -4px;
+  }
+
+  /* Corgi Screen */
+  .corgi-title {
+    width: clamp(200px, 55vw, 340px);
+  }
+
+  .corgi-img {
+    height: clamp(180px, 35vh, 300px);
+  }
+
+  .corgi-hint {
+    font-size: clamp(13px, 3vw, 16px);
   }
 }
 
-@media (max-width: 380px) {
-  .pin-display {
-    gap: 10px;
-  }
-
-  .pin-dot {
-    width: 40px;
-    height: 40px;
-  }
-
-  .numpad__btn {
-    width: 48px;
-    height: 48px;
-    font-size: 16px;
-  }
-
-  .numpad {
-    gap: 8px;
+/* --- Small phones (max-width: 480px) --- */
+@media (max-width: 480px) {
+  .screen1__container {
+    gap: 24px;
+    padding: 24px 12px 36px;
   }
 
   .polaroid {
@@ -1043,20 +1149,274 @@ body {
 
   .polaroid__sticker {
     width: 100px;
-    top: -15px;
+    top: -16px;
     left: -16px;
   }
 
   .polaroid__caption {
-    font-size: 13px;
+    font-size: 14px;
     margin-top: 8px;
   }
 
-  .gift-view__back {
-    bottom: 16px;
-    right: 16px;
+  .screen1__right {
+    padding: 24px 16px;
+    max-width: 290px;
+  }
+
+  .numpad__title {
+    font-size: 20px;
+  }
+
+  .pin-display {
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+
+  .pin-dot {
+    width: 42px;
+    height: 42px;
+  }
+
+  .numpad__btn {
+    width: 52px;
+    height: 52px;
+    font-size: 17px;
+  }
+
+  .numpad {
+    gap: 10px;
+  }
+
+  .numpad__enter {
+    padding: 12px 36px;
+    font-size: 16px;
+  }
+
+  .title-line {
+    font-size: 30px;
+  }
+
+  .gifts-wrapper {
+    gap: 20px;
+  }
+
+  .gift-box__img {
+    width: 110px;
+    height: 110px;
+  }
+
+  .gift-view {
+    padding: 16px 12px;
+  }
+
+  .cake-display__text {
+    font-size: clamp(14px, 4vw, 20px);
+  }
+
+  .card-display__message {
+    font-size: clamp(16px, 4vw, 28px);
+  }
+
+  .detailed-card__title {
+    font-size: 18px;
+  }
+
+  .detailed-card__text p {
     font-size: 13px;
-    padding: 8px 18px;
+    line-height: 1.75;
+  }
+
+  .photobooth-strip {
+    width: 190px;
+  }
+
+  .photobooth-strip__frame {
+    width: 166px;
+    height: 110px;
+  }
+
+  .gift-view__back {
+    padding: 10px 28px;
+    font-size: 13px;
+  }
+
+  /* Corgi Screen */
+  .corgi-title {
+    width: clamp(180px, 60vw, 280px);
+  }
+
+  .corgi-img {
+    height: clamp(150px, 30vh, 250px);
+  }
+}
+
+/* --- Very small phones (max-width: 360px) --- */
+@media (max-width: 360px) {
+  .screen1__container {
+    padding: 20px 10px 32px;
+    gap: 20px;
+  }
+
+  .polaroid {
+    width: 190px;
+    padding: 10px 10px 30px;
+  }
+
+  .polaroid__sticker {
+    width: 85px;
+    top: -14px;
+    left: -12px;
+  }
+
+  .polaroid__caption {
+    font-size: 12px;
+  }
+
+  .screen1__right {
+    padding: 20px 14px;
+    max-width: 260px;
+  }
+
+  .numpad__title {
+    font-size: 18px;
+  }
+
+  .pin-display {
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .pin-dot {
+    width: 38px;
+    height: 38px;
+  }
+
+  .numpad__btn {
+    width: 46px;
+    height: 46px;
+    font-size: 15px;
+  }
+
+  .numpad {
+    gap: 8px;
+  }
+
+  .numpad__enter {
+    padding: 10px 28px;
+    font-size: 14px;
+  }
+
+  .title-line {
+    font-size: 26px;
+  }
+
+  .gift-box__img {
+    width: 95px;
+    height: 95px;
+  }
+
+  .detailed-card__title {
+    font-size: 16px;
+  }
+
+  .detailed-card__text p {
+    font-size: 12.5px;
+    line-height: 1.7;
+  }
+
+  .photobooth-strip {
+    width: 170px;
+  }
+
+  .photobooth-strip__frame {
+    width: 146px;
+    height: 100px;
+  }
+
+  .corgi-title {
+    width: clamp(160px, 65vw, 240px);
+  }
+
+  .corgi-img {
+    height: clamp(130px, 28vh, 220px);
+  }
+}
+
+/* --- Landscape mobile fix --- */
+@media (max-height: 500px) and (orientation: landscape) {
+  .screen--active {
+    align-items: flex-start;
+  }
+
+  .screen1__container {
+    flex-direction: row;
+    gap: 24px;
+    padding: 16px;
+    min-height: auto;
+  }
+
+  .polaroid {
+    width: 180px;
+    padding: 10px 10px 28px;
+  }
+
+  .polaroid__sticker {
+    width: 80px;
+    top: -12px;
+    left: -12px;
+  }
+
+  .screen1__right {
+    padding: 16px 14px;
+  }
+
+  .numpad__title {
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  .pin-dot {
+    width: 34px;
+    height: 34px;
+  }
+
+  .pin-display {
+    margin-bottom: 12px;
+    gap: 8px;
+  }
+
+  .numpad__btn {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .numpad {
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .numpad__enter {
+    padding: 8px 24px;
+    font-size: 14px;
+  }
+
+  .corgi-container {
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  .corgi-title {
+    width: clamp(140px, 20vw, 220px);
+  }
+
+  .corgi-img {
+    height: clamp(120px, 60vh, 280px);
+  }
+
+  .gift-view {
+    height: auto;
+    min-height: 100vh;
   }
 }
 
